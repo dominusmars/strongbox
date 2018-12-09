@@ -1,5 +1,12 @@
 package org.carlspring.strongbox.controllers.layout.npm;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasItem;
+
+import javax.inject.Inject;
+
 import org.carlspring.strongbox.artifact.coordinates.NpmArtifactCoordinates;
 import org.carlspring.strongbox.config.IntegrationTest;
 import org.carlspring.strongbox.domain.ArtifactEntry;
@@ -11,18 +18,10 @@ import org.carlspring.strongbox.testing.repository.NpmRepository;
 import org.carlspring.strongbox.testing.storage.repository.RepositoryManagementTestExecutionListener;
 import org.carlspring.strongbox.testing.storage.repository.TestRepository.Group;
 import org.carlspring.strongbox.testing.storage.repository.TestRepository.Remote;
-
-import javax.inject.Inject;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.HttpStatus;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasItem;
 
 /**
  * @author Pablo Tirado

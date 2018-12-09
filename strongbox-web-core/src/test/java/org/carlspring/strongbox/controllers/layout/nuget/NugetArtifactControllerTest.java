@@ -1,5 +1,8 @@
 package org.carlspring.strongbox.controllers.layout.nuget;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
+
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
@@ -10,11 +13,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import io.restassured.http.ContentType;
-import io.restassured.http.Header;
-import io.restassured.http.Headers;
-import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
-import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
 import org.carlspring.strongbox.artifact.coordinates.NugetArtifactCoordinates;
 import org.carlspring.strongbox.config.IntegrationTest;
 import org.carlspring.strongbox.domain.ArtifactEntry;
@@ -32,13 +30,16 @@ import org.carlspring.strongbox.testing.storage.repository.RepositoryManagementT
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
+import io.restassured.http.ContentType;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
+import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
+
 
 /**
  * @author Sergey Bespalov

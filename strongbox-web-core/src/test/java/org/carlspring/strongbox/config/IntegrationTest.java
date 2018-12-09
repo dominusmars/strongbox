@@ -17,8 +17,6 @@ import java.lang.annotation.Target;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.maven.index.updater.ResourceFetcher;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -32,7 +30,6 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -58,12 +55,10 @@ import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
                             MockedRemoteRepositoriesHeartbeatConfig.class,
                             IntegrationTest.IntegrationTestsConfiguration.class,
                             TestingCoreConfig.class })
-@WebAppConfiguration("classpath:")
 @WithUserDetails("admin")
 @ActiveProfiles("test")
 @TestExecutionListeners(listeners = CacheManagerTestExecutionListener.class,
                         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-@Execution(ExecutionMode.SAME_THREAD)
 public @interface IntegrationTest
 {
 

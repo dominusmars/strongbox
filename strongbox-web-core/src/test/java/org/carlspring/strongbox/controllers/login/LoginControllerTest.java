@@ -48,6 +48,7 @@ public class LoginControllerTest
             throws Exception
     {
         super.init();
+        setContextBaseUrl("/api/login");
     }
 
     @AfterEach
@@ -62,16 +63,17 @@ public class LoginControllerTest
         loginInput.setUsername("admin");
         loginInput.setPassword("password");
 
+        String url = getContextBaseUrl();
         mockMvc.contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON_VALUE)
                .body(loginInput)
                .when()
-               .post("/api/login")
+               .post(url)
                .peek()
                .then()
                .body("token", CoreMatchers.any(String.class))
                .body("authorities", hasSize(greaterThan(0)))
-               .statusCode(200);
+               .statusCode(HttpStatus.OK.value());
     }
 
     @WithAnonymousUser
@@ -82,15 +84,16 @@ public class LoginControllerTest
         loginInput.setUsername("przemyslaw_fusik");
         loginInput.setPassword("password");
 
+        String url = getContextBaseUrl();
         mockMvc.contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON_VALUE)
                .body(loginInput)
                .when()
-               .post("/api/login")
+               .post(url)
                .peek()
                .then()
                .body("error", CoreMatchers.equalTo("invalid.credentials"))
-               .statusCode(401);
+               .statusCode(HttpStatus.UNAUTHORIZED.value());
     }
 
     @Test
@@ -107,15 +110,16 @@ public class LoginControllerTest
         loginInput.setUsername("test-disabled-user-login");
         loginInput.setPassword("1234");
 
+        String url = getContextBaseUrl();
         mockMvc.contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON_VALUE)
                .body(loginInput)
                .when()
-               .post("/api/login")
+               .post(url)
                .peek()
                .then()
                .body("error", CoreMatchers.equalTo("User account is locked"))
-               .statusCode(401);
+               .statusCode(HttpStatus.UNAUTHORIZED.value());
     }
 
     @Test
@@ -135,14 +139,15 @@ public class LoginControllerTest
         loginInput.setUsername("admin-cache-eviction-test");
         loginInput.setPassword("password");
 
+        String url = "/api/login";
         mockMvc.contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON_VALUE)
                .body(loginInput)
                .when()
-               .post("/api/login")
+               .post(url)
                .peek()
                .then()
-               .statusCode(200)
+               .statusCode(HttpStatus.OK.value())
                .body("token", CoreMatchers.any(String.class))
                .body("authorities", hasSize(greaterThan(0)));
 
@@ -159,11 +164,12 @@ public class LoginControllerTest
                .then()
                .statusCode(HttpStatus.OK.value());
 
+        url = getContextBaseUrl();
         mockMvc.contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON_VALUE)
                .body(loginInput)
                .when()
-               .post("/api/login")
+               .post(url)
                .peek()
                .then()
                .statusCode(HttpStatus.UNAUTHORIZED.value())

@@ -3,23 +3,23 @@ package org.carlspring.strongbox.controllers;
 import org.carlspring.strongbox.booters.PropertiesBooter;
 import org.carlspring.strongbox.config.IntegrationTest;
 import org.carlspring.strongbox.rest.common.RestAssuredBaseTest;
+
+import javax.inject.Inject;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithUserDetails;
 
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
-
-import javax.inject.Inject;
-
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
+
 /**
- * @author: adavid9
+ * @author adavid9
  */
 @IntegrationTest
 public class ActuatorEndpointControllerTest
@@ -38,12 +38,11 @@ public class ActuatorEndpointControllerTest
             throws Exception
     {
         super.init();
-        setContextBaseUrl(getContextBaseUrl() + "/api/monitoring");
+        setContextBaseUrl("/api/monitoring");
     }
 
     @Test
-    @WithUserDetails("admin")
-    public void testStrongboxInfo()
+    void testStrongboxInfo()
     {
 
         String url = getContextBaseUrl() + "/info";

@@ -23,6 +23,7 @@ import org.springframework.http.MediaType;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
+
 /**
  * @author Pablo Tirado
  */
