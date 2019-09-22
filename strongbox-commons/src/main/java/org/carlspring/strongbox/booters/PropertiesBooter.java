@@ -61,11 +61,6 @@ public class PropertiesBooter
     @PostConstruct
     public void init()
     {
-        if (System.getProperty("logging.dir") == null)
-        {
-            System.setProperty("logging.dir", getVaultDirectory() + "/logs");
-        }
-
         if (System.getProperty("logging.config.file") == null)
         {
             System.setProperty("logging.config.file", getHomeDirectory() + "/etc/logback-spring.xml");
