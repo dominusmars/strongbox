@@ -1,34 +1,27 @@
 package org.carlspring.strongbox.controllers;
 
-
-import static java.nio.charset.StandardCharsets.ISO_8859_1;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-
-import java.nio.charset.Charset;
-import java.util.Collections;
-import java.util.Locale;
-
-import javax.inject.Inject;
-
 import org.carlspring.strongbox.config.IntegrationTest;
 import org.carlspring.strongbox.rest.common.RestAssuredBaseTest;
 import org.carlspring.strongbox.users.security.JwtAuthenticationClaimsProvider.JwtAuthentication;
 import org.carlspring.strongbox.users.security.JwtClaimsProvider;
 import org.carlspring.strongbox.users.security.SecurityTokenProvider;
 import org.carlspring.strongbox.users.userdetails.SpringSecurityUser;
+
+import javax.inject.Inject;
+import java.util.Collections;
+
 import org.jose4j.jwt.NumericDate;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.TestSecurityContextHolder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * @author adavid9
@@ -38,11 +31,6 @@ import org.springframework.security.test.context.TestSecurityContextHolder;
 public class JwtAuthenticationTest
         extends RestAssuredBaseTest
 {
-
-    private static final String UNAUTHORIZED_MESSAGE_CODE = "ExceptionTranslationFilter.insufficientAuthentication";
-
-    private final MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
-
     @Inject
     private SecurityTokenProvider securityTokenProvider;
 
@@ -107,14 +95,7 @@ public class JwtAuthenticationTest
     @Test
     public void testJWTAuthShouldFailWithoutToken()
     {
-        String defaultErrorMessage = messages.getMessage(UNAUTHORIZED_MESSAGE_CODE,
-                                                         Locale.ENGLISH);
-
-        String errorMessage = messages.getMessage(UNAUTHORIZED_MESSAGE_CODE,
-                                                  defaultErrorMessage);
-
-        String decodedErrorMessage = new String(errorMessage.getBytes(ISO_8859_1),
-                Charset.defaultCharset());
+        String decodedErrorMessage = getI18nInsufficientAuthenticationErrorMessage();
 
         String url = getContextBaseUrl() + "/users";
 
