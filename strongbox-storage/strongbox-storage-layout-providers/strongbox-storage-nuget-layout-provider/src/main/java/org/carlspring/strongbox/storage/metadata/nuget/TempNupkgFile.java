@@ -17,6 +17,7 @@
 
 package org.carlspring.strongbox.storage.metadata.nuget;
 
+import io.github.pixee.security.ZipSecurity;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -115,7 +116,7 @@ public class TempNupkgFile implements AutoCloseable, Nupkg
         throws IOException,
                NugetFormatException
     {
-        try (ZipInputStream zipInputStream = new ZipInputStream(packageStream);)
+        try (ZipInputStream zipInputStream = ZipSecurity.createHardenedInputStream(packageStream);)
         {
             ZipEntry entry;
             do
